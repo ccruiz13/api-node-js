@@ -1,6 +1,8 @@
 const Suscription = require('../model/Subscription')
 const ISuscriptionAdapter = require('../ports/output/ISuscriptionAdapter')
 const ISuscriptionServicePot = require('../ports/input/ISuscriptionServicePort')
+const DomainConfigurationException = require('../exceptions/DomainConfigurationException');
+const ExceptionMessages = require('../constants/ExceptionMessages');
 class SuscriptionUseCase extends ISuscriptionServicePort {
     constructor(suscriptionAdapter) {
         super();
@@ -17,7 +19,13 @@ class SuscriptionUseCase extends ISuscriptionServicePort {
      * @returns {Promise<Suscription[]>}
      */
     async getSubscriptionsByCustomerId(customerId) {
-        return await this.suscriptionAdapter.getSubscriptionsByCustomerId(customerId);
+        const subscriptions = await this.suscriptionAdapter.getSubscriptionsByCustomerId(customerId);
+        if (!subscriptions || subscriptions.length === 0) {
+      throw new DomainConfigurationException(ExceptionMessages.SUBSCRIPTIONS_NOT_FOUND);
+    }
+
+    return subscriptions;
+
     }
 }
 

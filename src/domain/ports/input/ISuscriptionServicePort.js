@@ -1,6 +1,6 @@
 const DomainConfigurationException = require('../../exceptions/DomainConfigurationException')
 
-class ISuscriptionAdapter{
+class ISuscriptionServicePot{
     /**
    * Recupera el historial de suscripciones de un cliente
    * @param {string} customerId
@@ -12,4 +12,4 @@ class ISuscriptionAdapter{
         
     
 }
-module.exports = ISuscriptionAdapter;
+module.exports = ISuscriptionServicePot;

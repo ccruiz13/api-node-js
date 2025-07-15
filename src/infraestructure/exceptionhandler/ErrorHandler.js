@@ -8,7 +8,7 @@ const {
   InsufficientBalanceException
 } = require('../exception/BaseException');
 const DomainConfigurationException = require('../../domain/exceptions/DomainConfigurationException');
-const ErrorResponse = require('../input/response/GenericResponse')
+const {ErrorResponse} = require('../input/response/GenericResponse')
 const MessagesResponse = require('../exception/MessagesResponse')
 
 class ErrorHandler {

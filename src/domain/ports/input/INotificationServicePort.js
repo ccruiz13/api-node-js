@@ -7,7 +7,7 @@ class INotificationServicePort {
    * @param {string} message
    * @returns {Promise<void>}
    */
-  async sendNotification(notification, message) {
+  async sendNotification(notification) {
     throw new DomainConfigurationException(ExceptionMessages.SEND_NOTIFICATION_NOT_IMPLEMENTED_MESSAGE);
   }
 }

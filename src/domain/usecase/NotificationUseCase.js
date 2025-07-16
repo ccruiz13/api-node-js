@@ -20,9 +20,9 @@ class NotificationUseCase extends INotificationServicePort {
  * @param {string} message
  */
 
-    async sendNotification(notification, message) {
+    async sendNotification(notification) {
   try {
-    await this.notificationAdapter.sendNotification(notification, message);
+    await this.notificationAdapter.sendNotification(notification);
   } catch (error) {
     console.error('Error al enviar la notificación:', error);
     throw new DomainConfigurationException(ExceptionMessages.SEND_NOTIFICATION_FAILED_MESSAGE);

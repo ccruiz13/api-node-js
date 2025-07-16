@@ -1,6 +1,5 @@
-const Notification = require('../../domain/model/Notification');
-const {BadRequestException} = require('../../infraestructure/exception/BaseException');
-const ExceptionHandler = require('../../application/exception/ExceptionHandler');
+const NotificationDTO = require('../dto/request/NotificationDTO');
+const NotificationMapper = require('../mapper/NotificationMapper');
 
 class NotificationHandler {
   /**
@@ -9,6 +8,16 @@ class NotificationHandler {
 
   constructor(notificationUseCase) {
     this.notificationUseCase = notificationUseCase;
+  }
+
+  /**
+   * Maneja el envío de notificaciones por ambos canales
+   * @param {Object} dto
+   * @returns {Promise<void>}
+   */
+  async sendNotification(dto) {
+   const notification = NotificationMapper.toDomain(dto);
+   await this.notificationUseCase.sendNotification(notification);
   }
 
 }

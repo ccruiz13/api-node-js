@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const express = require('express');
 const { SuccessResponse } = require('../response/GenericResponse');
 const ErrorHandler = require('../../exceptionhandler/ErrorHandler');
 const MessagesResponse = require('../../exception/MessagesResponse');
@@ -56,7 +56,7 @@ class NotificationRouter {
  *       500:
  *         description: Error interno del servidor
  */
-        this.router.post(RouteConstants.NOTIFICATION_BASE_PATH,
+        this.router.post('/',
             async (req, res, next) => {
                 try {
                     await this.notificationHandler.sendNotification(req.body);
@@ -68,6 +68,10 @@ class NotificationRouter {
             }
         );
 
+    }
+
+    getRouter() {
+        return this.router;
     }
 }
 module.exports = NotificationRouter;

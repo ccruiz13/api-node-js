@@ -1,5 +1,5 @@
 const DomainConfigurationException = require('../../exceptions/DomainConfigurationException');
-const ExceptionMessages = require('../../constants/ExceptionMessages')
+const ExceptionMessages = require('../../constants/ExceptionMessages');
 
 class ISubscriptionServicePort {
   /**
@@ -8,7 +8,9 @@ class ISubscriptionServicePort {
    * @returns {Promise<Subscription[]>}
    */
   async getSubscriptionsByCustomerId(customerId) {
-    throw new DomainConfigurationException(ExceptionMessages.GET_SUBSCRIPTIONS_BY_CUSTOMER_ID_NOT_IMPLEMENTED_MESSAGE);
+    throw new DomainConfigurationException(
+      ExceptionMessages.GET_SUBSCRIPTIONS_BY_CUSTOMER_ID_NOT_IMPLEMENTED_MESSAGE
+    );
   }
 }
 

@@ -1,4 +1,5 @@
-const SubscriptionResponseMapper = require('../mapper/SubscriptionResponseMapper')
+const SubscriptionResponseMapper = require('../mapper/SubscriptionResponseMapper');
+
 class SubscriptionHandler {
   /**
    * @param {SubscriptionUseCase} subscriptionUseCase

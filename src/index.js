@@ -18,7 +18,7 @@ const subscriptionRouter = DependencyContainer.getSubscriptionRouter();
 app.use(RouteConstants.SUBSCRIPTION_BASE_PATH, subscriptionRouter.getRouter());
 
 app.get('/', (req, res) => {
-  res.send('BTG Funds API Node.js funcionando correctamente 🚀');
+  res.send('BTG Funds API Node.js funcionando correctamente');
 });
 
 app.listen(PORT, () => {

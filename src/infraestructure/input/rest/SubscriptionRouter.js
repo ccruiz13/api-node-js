@@ -8,33 +8,33 @@ const RouteConstants = require('../../commons/RouteConstants');
 class SubscriptionRouter {
   /**
    * @param {SubscriptionHandler} subscriptionHandler
-   */  constructor(subscriptionHandler) {
+   */
+  constructor(subscriptionHandler) {
     this.router = express.Router();
     this.handler = subscriptionHandler;
     this.setupRoutes();
   }
 
   setupRoutes() {
- /**
- * @swagger
- * /subscriptions/{customer_id}:
- *   get:
- *     summary: Obtener historial de transacciones por customer_id
- *     parameters:
- *       - in: path
- *         name: customer_id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Consulta exitosa
- */
-this.router.get(RouteConstants.GET_CUSTOMER_BY_ID, async (req, res, next) => {
+    /**
+     * @swagger
+     * /subscriptions/{customer_id}:
+     *   get:
+     *     summary: Obtener historial de transacciones por customer_id
+     *     parameters:
+     *       - in: path
+     *         name: customer_id
+     *         required: true
+     *         schema:
+     *           type: string
+     *     responses:
+     *       200:
+     *         description: Consulta exitosa
+     */
+    this.router.get(RouteConstants.GET_CUSTOMER_BY_ID, async (req, res, next) => {
       try {
-        console.log('➡️  Entró a la ruta con ID:', customer_id);
-
         const { customer_id } = req.params;
+        console.log('Entró con ID:', customer_id);
 
         if (!customer_id) {
           throw new BadRequestException(MessagesResponse.CUSTOMER_ID_REQUIRED_MESSAGE);

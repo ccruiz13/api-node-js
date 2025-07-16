@@ -1,6 +1,6 @@
-const Suscription = require('../model/Subscription')
-const ISuscriptionAdapter = require('../ports/output/ISuscriptionAdapter')
-const ISubscriptionServicePort = require('../ports/input/ISuscriptionServicePort')
+const Suscription = require('../model/Subscription');
+const ISuscriptionAdapter = require('../ports/output/ISuscriptionAdapter');
+const ISubscriptionServicePort = require('../ports/input/ISuscriptionServicePort');
 const DomainConfigurationException = require('../exceptions/DomainConfigurationException');
 const ExceptionMessages = require('../constants/ExceptionMessages');
 
@@ -16,15 +16,14 @@ class SubscriptionUseCase extends ISubscriptionServicePort {
   }
 
   async getSubscriptionsByCustomerId(customerId) {
-        const subscriptions = await thissuscriptionAdapter.getSubscriptionsByCustomerId(customerId);
-        console.log(subscriptions);
-        if (!subscriptions || subscriptions.length === 0) {
-            throw new DomainConfigurationException(ExceptionMessages.SUBSCRIPTIONS_NOT_FOUND);
-        }
+    const subscriptions = await this.subscriptionAdapter.getSubscriptionsByCustomerId(customerId);
 
-        return subscriptions;
-
+    if (!subscriptions || subscriptions.length === 0) {
+      throw new DomainConfigurationException(ExceptionMessages.SUBSCRIPTIONS_NOT_FOUND);
     }
+
+    return subscriptions;
+  }
 }
 
 module.exports = SubscriptionUseCase;

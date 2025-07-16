@@ -1,7 +1,7 @@
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, QueryCommand } = require('@aws-sdk/lib-dynamodb');
-const EnvConfig = require('../../../config/env')
-const SuscriptionEntity = require('../entities/SuscriptionEntity')
+const EnvConfig = require('../../../config/env');
+const SubscriptionEntity = require('../entities/SuscriptionEntity');
 
 class SubscriptionRepository {
   constructor() {
@@ -18,14 +18,23 @@ class SubscriptionRepository {
   }
 
   async getSubscriptionsByCustomerId(customerId) {
+    console.log('AWS_ACCESS_KEY_ID:', EnvConfig.AWS_ACCESS_KEY_ID);
+    console.log('AWS_SECRET_ACCESS_KEY:', EnvConfig.AWS_SECRET_ACCESS_KEY);
+
     const params = {
       TableName: this.tableName,
-      IndexName: 'customer_id-index', // Debes tener este GSI creado en DynamoDB
+      IndexName: 'customer_id-index', // <--- usa el índice simple
       KeyConditionExpression: 'customer_id = :cid',
+      FilterExpression: '#status = :status',
+      ExpressionAttributeNames: {
+        '#status': 'status',
+      },
       ExpressionAttributeValues: {
         ':cid': customerId,
+        ':status': 'ACTIVE',
       },
     };
+
 
     const command = new QueryCommand(params);
     const result = await this.docClient.send(command);

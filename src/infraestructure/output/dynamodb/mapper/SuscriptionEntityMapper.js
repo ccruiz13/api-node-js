@@ -1,5 +1,5 @@
-const Suscription = require('../../../../domain/model/Subscription')
-const SuscriptionStatus = require('../../../../domain/constants/SubscriptionStatus')
+const Subscription = require('../../../../domain/model/Subscription')
+const SubscriptionStatus = require('../../../../domain/constants/SubscriptionStatus')
 const SuscriptionEntity = require('../entities/SuscriptionEntity')
 class SuscriptionEntityMapper{
 

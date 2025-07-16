@@ -1,0 +1,1 @@
+const DomainConfigurationException = require('../exceptions/DomainConfigurationException');

@@ -16,12 +16,12 @@ class DependencyContainer {
         return new SubscriptionRouter(handler);
     }
 
-    static getNotificationRouter(){
+    static getNotificationRouter() {
         const adapter = new NotificationAdapter();
         const useCase = new NotificationUseCase(adapter);
         const handler = new NotificationHandler(useCase);
         return new NotificationRouter(handler);
-        }
+    }
 }
 
 module.exports = DependencyContainer;

@@ -7,14 +7,26 @@ class SnsEmailClient {
   }
 
   async send(to, subject, message) {
+    if (!this.topicArn) {
+      console.error("SNS Topic ARN is not defined");
+      throw new Error("SNS Topic ARN is missing in environment variables");
+    }
+
     const params = {
       TopicArn: this.topicArn,
-      Message: message,
-      Subject: subject
+      Subject: subject,
+      Message: message
     };
 
-    await this.client.send(new PublishCommand(params));
+    try {
+      const response = await this.client.send(new PublishCommand(params));
+      console.log(`Email sent via SNS. MessageId: ${response.MessageId}`);
+    } catch (error) {
+      console.error("Error sending email via SNS:", error);
+      throw new Error("Failed to send SNS email notification");
+    }
   }
 }
 
 module.exports = SnsEmailClient;
+

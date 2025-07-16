@@ -14,7 +14,7 @@ const options = {
       },
     ],
   },
-  apis: ['./src/infraestructure/input/rest/*.js'], // ✅ corregido
+  apis: ['./src/infraestructure/input/rest/*.js'], 
 };
 
 

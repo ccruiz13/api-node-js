@@ -18,19 +18,24 @@ class SubscriptionRouter {
   setupRoutes() {
     /**
      * @swagger
-     * /subscriptions/{customer_id}:
-     *   get:
-     *     summary: Obtener historial de transacciones por customer_id
-     *     parameters:
-     *       - in: path
-     *         name: customer_id
-     *         required: true
-     *         schema:
-     *           type: string
-     *     responses:
-     *       200:
-     *         description: Consulta exitosa
-     */
+    /**
+ * @swagger
+ * /subscriptions/{customer_id}:
+ *   get:
+ *     summary: Obtener historial de transacciones por customer_id
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: customer_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Consulta exitosa
+ */
+
     this.router.get(RouteConstants.GET_CUSTOMER_BY_ID, async (req, res, next) => {
       try {
         const { customer_id } = req.params;

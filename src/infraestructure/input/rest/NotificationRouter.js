@@ -17,10 +17,13 @@ class NotificationRouter {
     registerRoutes() {
 
         /**
+/**
  * @swagger
  * /notifications:
  *   post:
  *     summary: Envía notificación por correo y SMS
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Notificaciones
  *     requestBody:
@@ -56,6 +59,7 @@ class NotificationRouter {
  *       500:
  *         description: Error interno del servidor
  */
+
         this.router.post('/',
             async (req, res, next) => {
                 try {

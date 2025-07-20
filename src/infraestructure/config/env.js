@@ -5,7 +5,7 @@ class EnvConfig {
   static AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
   static AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 
-  static DYNAMO_TABLE_NAME = process.env.DYNAMO_TABLE_NAME;
+  static DYNAMO_TABLE_NAME = process.env.DYNAMO_SUBSCRIPTION_TABLE;
   static NOTIFICATION_TOPIC_ARN = process.env.NOTIFICATION_TOPIC_ARN;
 
   static TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;

@@ -12,6 +12,8 @@ class EnvConfig {
   static TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
   static TWILIO_FROM_NUMBER = process.env.TWILIO_FROM_NUMBER;
 
+  static JAVA_BASE_URL = process.env.BASE_URL_JAVA;
+
   static validate() {
     const requiredVars = [
       'AWS_REGION',
@@ -21,7 +23,8 @@ class EnvConfig {
       'NOTIFICATION_TOPIC_ARN',
       'TWILIO_ACCOUNT_SID',
       'TWILIO_AUTH_TOKEN',
-      'TWILIO_FROM_NUMBER'
+      'TWILIO_FROM_NUMBER',
+      'BASE_URL_JAVA'
     ];
 
     const missing = requiredVars.filter((key) => !process.env[key]);

@@ -1,4 +1,16 @@
 require('dotenv').config();
+const { SSMClient, GetParameterCommand } = require('@aws-sdk/client-ssm');
+
+const ssmClient = new SSMClient({ region: process.env.AWS_REGION });
+
+async function getSecureParameter(name) {
+  const command = new GetParameterCommand({
+    Name: name,
+    WithDecryption: true
+  });
+  const response = await ssmClient.send(command);
+  return response.Parameter.Value;
+}
 
 class EnvConfig {
   static AWS_REGION = process.env.AWS_REGION;
@@ -7,24 +19,26 @@ class EnvConfig {
 
   static DYNAMO_TABLE_NAME = process.env.DYNAMO_SUBSCRIPTION_TABLE;
   static NOTIFICATION_TOPIC_ARN = process.env.NOTIFICATION_TOPIC_ARN;
+  static JAVA_BASE_URL = process.env.BASE_URL_JAVA;
 
-  static TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
-  static TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
-  static TWILIO_FROM_NUMBER = process.env.TWILIO_FROM_NUMBER;
+  // Secretos que deben obtenerse desde AWS SSM
+  static async loadSecrets() {
+    EnvConfig.TWILIO_ACCOUNT_SID = await getSecureParameter('/btg/api-node/TWILIO_ACCOUNT_SID');
+    EnvConfig.TWILIO_AUTH_TOKEN = await getSecureParameter('/btg/api-node/TWILIO_AUTH_TOKEN');
+    EnvConfig.TWILIO_FROM_NUMBER = await getSecureParameter('/btg/api-node/TWILIO_FROM_NUMBER');
+  }
 
-  static validate() {
-    const requiredVars = [
+  static validateEnvVars() {
+    const required = [
       'AWS_REGION',
       'AWS_ACCESS_KEY_ID',
       'AWS_SECRET_ACCESS_KEY',
       'DYNAMO_TABLE_NAME',
       'NOTIFICATION_TOPIC_ARN',
-      'TWILIO_ACCOUNT_SID',
-      'TWILIO_AUTH_TOKEN',
-      'TWILIO_FROM_NUMBER'
+      'JAVA_BASE_URL'
     ];
 
-    const missing = requiredVars.filter((key) => !process.env[key]);
+    const missing = required.filter((key) => !process.env[key]);
 
     if (missing.length > 0) {
       throw new Error(`Missing environment variables: ${missing.join(', ')}`);
@@ -32,7 +46,6 @@ class EnvConfig {
   }
 }
 
-// Valida al momento de importar
-EnvConfig.validate();
+EnvConfig.validateEnvVars();
 
 module.exports = EnvConfig;

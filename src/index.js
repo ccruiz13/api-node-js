@@ -1,4 +1,6 @@
 const express = require('express');
+const serverless = require('serverless-http');
+const app = require('./app');
 const VerifyToken = require('./infraestructure/security/VerifyToken');
 const verifyToken = new VerifyToken().execute();
 require('dotenv').config();
@@ -31,3 +33,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
+module.exports.handler = serverless(app);

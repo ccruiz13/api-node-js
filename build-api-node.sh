@@ -1,38 +1,18 @@
 #!/bin/bash
 
-# Nombre del zip
-ZIP_NAME="api-node.zip"
+# Nombre del archivo zip
+ZIP_NAME="node-api.zip"
 
-# Carpeta de salida temporal
-TEMP_DIR="dist"
-
-# Limpiar zip anterior y carpeta temporal
+# Limpiar cualquier zip anterior
 rm -f $ZIP_NAME
-rm -rf $TEMP_DIR
 
-# Crear carpeta temporal y copiar archivos necesarios
-mkdir -p $TEMP_DIR
+# Verificar que los archivos existen
+if [ ! -f "index.js" ] || [ ! -f "package.json" ]; then
+  echo "Faltan archivos esenciales (index.js, package.json)."
+  exit 1
+fi
 
-# Copiar código fuente, excluyendo carpetas innecesarias
-rsync -av \
-  --exclude='node_modules' \
-  --exclude='.git' \
-  --exclude='tests' \
-  --exclude='*.log' \
-  --exclude='*.zip' \
-  --exclude='*.sh' \
-  --exclude='README.md' \
-  ./ $TEMP_DIR
-
-# Instalar solo dependencias necesarias para producción
-cd $TEMP_DIR
-npm install --omit=dev
-
-# Crear el archivo ZIP
-zip -r ../$ZIP_NAME .
-
-# Volver y limpiar
-cd ..
-rm -rf $TEMP_DIR
+# Crear el ZIP incluyendo solo los archivos necesarios
+zip -r $ZIP_NAME index.js src package.json package-lock.json
 
 echo "Archivo $ZIP_NAME generado correctamente."
